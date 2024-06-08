@@ -34,6 +34,7 @@ def cadastrar_restaurante():
 def listar_restaurantes():
     os.system("cls")
     print("Lista de restaurantes:\n\n")
+    print("Nome do restaurante".ljust(20),"|Categoria".ljust(20), "|Status")
     for restaurante in restaurantes:
         nome_restaurante=restaurante["nome"]
         categoria_restaurante=restaurante["categoria"]
