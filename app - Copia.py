@@ -7,11 +7,14 @@ def voltar_ao_menu_principal():
     main()
 def exibir_subtitulo(subtitulo):
     os.system('cls')
+    linha=("*"*len(subtitulo))
+    print (linha)
     print(subtitulo)
+    print (linha)
 def exibir_opcoes():
     print('1. Cadastrar restaurante')
     print('2. Listar restaurantes')
-    print('3. Ativar restaurante')
+    print('3. Alterar situação do restaurante')
     print('4. Sair\n')
 def finalizar_app():
     exibir_subtitulo("Finalizando o app")
@@ -20,17 +23,37 @@ def opcao_invalida():
     main()
 def cadastrar_restaurante():
     exibir_subtitulo("CADASTRO DE RESTAURANTES\n")
-    restaurantes.append(input("Digite o nome do restaurante: ").title())
-    if (restaurantes[:-1]).__contains__(restaurantes[-1]): 
-        print(f"O restaurante {restaurantes[-1]} já foi cadastrado anteriormente\n") 
-        restaurantes.pop()
+    nome_restaurante=input("Digite o nome do restaurante: ").title()
+    if (restaurantes).__contains__(nome_restaurante): 
+        print(f"O restaurante {nome_restaurante} já foi cadastrado anteriormente\n") 
     else:
-        print(f"Restaurante {restaurantes[-1]} cadastrado.")
+        categoria_restaurante=input("Digite a categoria do restaurante: ").title()
+        restaurantes.append({'nome':nome_restaurante, "categoria":categoria_restaurante, "ativo":False})
+        print(f"Restaurante {nome_restaurante} cadastrado.")
     voltar_ao_menu_principal()
 def listar_restaurantes():
     os.system("cls")
-    print('Lista de restaurantes:\n\n',*restaurantes, sep="\n")
+    print("Lista de restaurantes:\n\n")
+    for restaurante in restaurantes:
+        nome_restaurante=restaurante["nome"]
+        categoria_restaurante=restaurante["categoria"]
+        situacao_restaurante=restaurante["ativo"]
+        print(f'{nome_restaurante.ljust(20)} | {categoria_restaurante.ljust(20)} | {"Ativo" if situacao_restaurante == True else "Inativo"}\n')
     voltar_ao_menu_principal()
+def alterar_situacao_restaurante():
+    exibir_subtitulo("Digite o nome do restaurante\n")
+    nome_restaurante=input()
+    for i in range(len(restaurantes)):
+        if restaurantes[i]["nome"].__contains__(nome_restaurante.title()):
+            if restaurantes[i]["ativo"]==False:
+                restaurantes[i]["ativo"]=not restaurantes[i]["ativo"]
+            restaurante_encontrado=True
+            print(f'{restaurantes[i]["nome"]} {"Ativado" if restaurantes[i]["ativo"] == True else "Desativado"}\n')
+        break
+    if not restaurante_encontrado:
+        print("O restaurante não foi encontrado. ")
+    voltar_ao_menu_principal()
+
 def escolher_opcao():
     try:
         opcao_escolhida = int(input('Escolha uma opção: '))
@@ -40,12 +63,13 @@ def escolher_opcao():
         elif opcao_escolhida == 2: 
             listar_restaurantes()
         elif opcao_escolhida == 3: 
-            print('Ativar restaurante')
+            alterar_situacao_restaurante()
         elif opcao_escolhida == 4:
             finalizar_app()
         else:
             opcao_invalida()
-    except:
+    except Exception as error:
+        print (error)
         opcao_invalida()
 def main():
     exibir_subtitulo("""
