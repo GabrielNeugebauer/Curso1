@@ -22,6 +22,16 @@ def opcao_invalida():
     input('Opção inválida escolhida, pressione qualquer tecla para voltar')
     main()
 def cadastrar_restaurante():
+    ''' Essa função é responsável por cadastrar um novo restaurante 
+    
+    Inputs:
+    - Nome do restaurante
+    - Categoria
+
+    Outputs:
+    - Adiciona um novo restaurante a lista de restaurantes
+
+    '''
     exibir_subtitulo("CADASTRO DE RESTAURANTES\n")
     nome_restaurante=input("Digite o nome do restaurante: ").title()
     if (restaurantes).__contains__(nome_restaurante): 
@@ -39,7 +49,7 @@ def listar_restaurantes():
         nome_restaurante=restaurante["nome"]
         categoria_restaurante=restaurante["categoria"]
         situacao_restaurante=restaurante["ativo"]
-        print(f'{nome_restaurante.ljust(20)} | {categoria_restaurante.ljust(20)} | {"Ativo" if situacao_restaurante == True else "Inativo"}\n')
+        print(f'{nome_restaurante.ljust(20)} | {categoria_restaurante.ljust(20)} | {"Ativo" if situacao_restaurante == True else "Inativo"}')
     voltar_ao_menu_principal()
 def alterar_situacao_restaurante():
     exibir_subtitulo("Digite o nome do restaurante\n")
