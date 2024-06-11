@@ -56,8 +56,7 @@ def alterar_situacao_restaurante():
     nome_restaurante=input()
     for i in range(len(restaurantes)):
         if restaurantes[i]["nome"].__contains__(nome_restaurante.title()):
-            if restaurantes[i]["ativo"]==False:
-                restaurantes[i]["ativo"]=not restaurantes[i]["ativo"]
+            restaurantes[i]["ativo"]=not restaurantes[i]["ativo"]
             restaurante_encontrado=True
             print(f'{restaurantes[i]["nome"]} {"Ativado" if restaurantes[i]["ativo"] == True else "Desativado"}\n')
         break
